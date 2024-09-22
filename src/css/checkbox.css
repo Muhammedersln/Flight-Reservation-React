@@ -1,0 +1,28 @@
+/* checkbox.css */
+.custom-checkbox {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%; 
+    border: 2px solid #ccc; 
+    appearance: none; 
+    -webkit-appearance: none;
+    outline: none; 
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; 
+  }
+  
+  .custom-checkbox:checked {
+    background-color: #581c87; 
+    border-color: #581c87; 
+  }
+  
+  .custom-checkbox:checked:after {
+    
+    display: block;
+    width: 8px;
+    height: 8px;
+    margin: 2px;
+    border-radius: 50%; 
+    background: white; 
+  }
+  
