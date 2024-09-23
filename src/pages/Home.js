@@ -37,7 +37,7 @@ const Home = () => {
     const filtered = flights.flights.filter((flight) => {
       const matchTo = to ? flight.route.destinations[0] : true;
       const matchDate = departureDate ? flight.departureDate === departureDate : true;
-      return matchTo ;
+      return matchTo;
     });
     setFilteredFlights({ flights: filtered });
   };
@@ -47,17 +47,19 @@ const Home = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className='container mx-auto'>
-      <div><Navbar></Navbar></div>
-      <div className='flex container gap-5'>
-        <div className=' w-4/5'>
+    <div className='container mx-auto px-4'>
+      <Navbar />
+      <div className='flex flex-col md:flex-row gap-5'>
+        {/* Ana İçerik Alanı */}
+        <div className='md:w-4/5 w-full order-2 md:order-1'>
           {/* BookBar */}
-          <div className='w-full'>
-            <BookBar onFilter={handleFilter}></BookBar>
+          <div className='w-full mb-5'>
+            <BookBar onFilter={handleFilter} />
           </div>
-          <div className='flex mt-9'>
+          {/* Uçuş Kartları ve Filtre */}
+          <div className='flex flex-col md:flex-row gap-5'>
             {/* FlightCard */}
-            <div className='w-3/4 '>
+            <div className='md:w-3/4 w-full'>
               {filteredFlights.length === 0 ? (
                 <p>No flights found...</p>
               ) : (
@@ -67,12 +69,15 @@ const Home = () => {
               )}
             </div>
             {/* FilterSide */}
-            <div className='w-1/4 bg-blue'>
-              <FilterSidebar></FilterSidebar>
+            <div className='md:w-1/4 w-full'>
+              <FilterSidebar />
             </div>
           </div>
         </div>
-        <div className=' w-1/5 '><SideBar></SideBar></div>
+        {/* Yan Menü */}
+        <div className='md:w-1/5 w-full order-1 md:order-2'>
+          <SideBar />
+        </div>
       </div>
     </div>
   );

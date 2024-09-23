@@ -6,7 +6,7 @@ import profileImage from "../images/profile.jpg";
 
 const Navbar = () => {
     return (
-        <div className='flex flex-wrap items-center justify-between px-4 py-3 md:px-10'>
+        <div className='flex flex-wrap items-center justify-between py-7  mx-auto'>
             <div className='text-lg md:text-xl flex items-center gap-2 font-bold'>
                 <span className='w-8 h-8 rounded-full bg-purple flex justify-center items-center'>
                     <IoAirplane color='white' className='text-2xl' />

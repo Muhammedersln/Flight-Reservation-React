@@ -26,7 +26,7 @@ const FilterSidebar = () => {
   };
 
   return (
-    <div className="p-4 space-y-4 bg-gray-100 w-64">
+    <div className="p-4 space-y-4 bg-gray-100 w-full md:w-64 md:rounded-lg">
       {/* Sort By */}
       <div className="space-y-2">
         <h3 className="font-semibold">Sort by:</h3>
@@ -80,7 +80,6 @@ const FilterSidebar = () => {
           />
           <span>Nonstop</span>
           <span className="ml-auto">$230</span>
-
         </label>
         <label className="flex items-center justify-between gap-2.5">
           <input
@@ -92,7 +91,6 @@ const FilterSidebar = () => {
           />
           <span>1 Stop</span>
           <span className="ml-auto">$230</span>
-
         </label>
         <label className="flex items-center justify-between gap-2.5">
           <input
@@ -104,7 +102,6 @@ const FilterSidebar = () => {
           />
           <span>2+ Stops</span>
           <span className="ml-auto">$230</span>
-
         </label>
       </div>
 
@@ -155,7 +152,7 @@ const FilterSidebar = () => {
           <span>Brussels Airlines</span>
           <span className="ml-auto">$230</span>
         </label>
-        <label className="flex items-center justify-between gap-2">
+        <label className="flex items-center justify-between gap-2.5">
           <input
             type="checkbox"
             value="Air Italy"

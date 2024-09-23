@@ -1,4 +1,3 @@
-// src/components/FlightCard.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPlaneDeparture, FaPlaneArrival, FaCalendarAlt } from 'react-icons/fa';
@@ -92,20 +91,20 @@ const FlightCard = ({ flight, bookFlight, priceArray, routeDest, airline }) => {
       <div className='w-full'>
         <div className=''>
           <span className="text-lg font-semibold">{randomRoute}</span>
-          <div className="flex  justify-between items-start ">
-            <div className='flex flex-col'>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+            <div className='flex flex-col items-start'>
               <span className="text-sm text-gray-500 flex items-center gap-2"> <TbPlaneDeparture />Departure</span>
               <span className='text-lg font-bold'>{departureTime}</span>
               <span className='text-sm'>Airport :  </span>
             </div>
-            <div className=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
-            <div className='flex flex-col items-center justify-center '>
+            <div className="hidden md:block border-t-4 border-gray-300 w-20 mt-5"></div>
+            <div className='flex flex-col items-center justify-center'>
               <span className="text-sm font-semibold">{prefixIATA}</span>
               <span className='text-purple text-xl'><IoAirplane></IoAirplane></span>
               <span className='text-sm'>{flightDuration}</span>
             </div>
-            <div className=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
-            <div className='flex flex-col text-en'>
+            <div className="hidden md:block border-t-4 border-gray-300 w-20 mt-5"></div>
+            <div className='flex flex-col items-start md:items-end text-en'>
               <span className="text-sm text-gray-500 flex items-center gap-2"> <TbPlaneArrival></TbPlaneArrival> Arrival</span>
               <span className='text-lg font-bold'>{arrivalTime}</span>
               <span className='text-sm'>Airport : {prefixICAO}</span>
@@ -113,14 +112,14 @@ const FlightCard = ({ flight, bookFlight, priceArray, routeDest, airline }) => {
           </div>
         </div>
 
-        <div className='flex justify-between mt-5 relative'>
-          <div className="flex flex-col items">
+        <div className='flex flex-col md:flex-row justify-between mt-5 relative'>
+          <div className="flex flex-col items-start">
             <span className="text-lg font-bold text-purple ">Price: ${randomPrice}</span>
-            <span className="text-sm text-gray-500 text">Round Trip</span>
+            <span className="text-sm text-gray-500">Round Trip</span>
           </div>
           <button
             onClick={() => handleSaveFlight(flight)}
-            className="bg-purple text-white px-4 py-2 rounded-md transition absolute top-0 right-0"
+            className="bg-purple text-white px-4 py-2 rounded-md transition md:absolute md:top-0 md:right-0 mt-4 md:mt-0"
           >
             {bookingConfirmed ? 'Reservation Confirmed!' : 'Book Flight'}
           </button>
@@ -130,7 +129,6 @@ const FlightCard = ({ flight, bookFlight, priceArray, routeDest, airline }) => {
         position="top-right"
         reverseOrder={false}
       /></div>
-
     </div>
   );
 };

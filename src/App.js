@@ -8,12 +8,10 @@ import MyFlight from './pages/MyFlight';
 function App() {
   return (
     <Router>
-      <div className="bg-zinc-100 py-5">
+      <div className="bg-zinc-100 py-5 mx- ">
         <Routes>
-          {/* İlgili rotaları burada tanımlayın */}
           <Route path="/" element={<Home />} />
           <Route path="/myflight" element={<MyFlight />} />
-          {/* Diğer rotalar buraya eklenebilir */}
         </Routes>
       </div>
     </Router>

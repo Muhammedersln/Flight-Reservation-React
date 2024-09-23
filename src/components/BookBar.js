@@ -12,9 +12,12 @@ const BookBar = ({ onFilter }) => {
   };
 
   return (
-    <div className='bg-white p-5 rounded-lg'>
-      <div className='flex justify-between'>
-        <h3 className='flex items-center gap-2 font-medium'> <span><IoAirplane /></span>BOOK YOUR FLIGHT</h3>
+    <div className='bg-white p-5 rounded-lg shadow-md max-w-7xl mx-auto'>
+      <div className='flex flex-col md:flex-row justify-between items-center md:items-start'>
+        <h3 className='flex items-center gap-2 font-medium text-xl mb-4 md:mb-0'>
+          <span><IoAirplane /></span>
+          BOOK YOUR FLIGHT
+        </h3>
         <div className="flex bg-gray-200 rounded-full p-1">
           <button
             onClick={() => setTripType('round')}
@@ -34,7 +37,7 @@ const BookBar = ({ onFilter }) => {
       </div>
 
       {/* Uçuş Bilgileri Girişi */}
-      <div className='flex gap-3 mt-5'>
+      <div className='flex flex-col md:flex-row gap-3 mt-5'>
         {/* Kalkış */}
         <div className='flex items-center border rounded-lg p-2.5 flex-1'>
           <FaPlaneDeparture className='mr-2.5' />
@@ -46,8 +49,8 @@ const BookBar = ({ onFilter }) => {
           />
         </div>
         {/* Varış */}
-        <div className='flex items-center border rounded-lg p-2.5 flex-1'  >
-          <FaPlaneArrival className='mr-2.5'  />
+        <div className='flex items-center border rounded-lg p-2.5 flex-1'>
+          <FaPlaneArrival className='mr-2.5' />
           <input 
             type="text" 
             placeholder="To" 
@@ -79,8 +82,8 @@ const BookBar = ({ onFilter }) => {
 
       {/* Uçuş Arama Butonu */}
       <button
-      className='mt-5 p-2.5 bg-purple text-white rounded-lg px-5 '
-      onClick={handleFilter}
+        className='mt-5 p-2.5 bg-purple text-white rounded-lg px-5 w-full md:w-auto'
+        onClick={handleFilter}
       >
         Show flights
       </button>
