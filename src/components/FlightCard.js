@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaPlaneDeparture, FaPlaneArrival, FaCalendarAlt } from 'react-icons/fa';
 import { TbPlaneArrival, TbPlaneDeparture } from "react-icons/tb";
 import axios from 'axios';
 import { IoAirplane } from "react-icons/io5";
@@ -40,23 +39,23 @@ const FlightCard = ({ flight, bookFlight, priceArray, routeDest, airline }) => {
       console.log('Uçuş başarıyla kaydedildi:', response.data.flights);
       setBookingConfirmed(true);
 
-      // Rezervasyon başarılı olduğunda toast mesajı göster
+      
       toast.success('Reservation Successful!', {
-        duration: 3000, // Toast mesajının gösterim süresi
-        position: 'top-right', // Toast pozisyonu
+        duration: 3000, 
+        position: 'top-right', 
       });
 
-      // 2 saniye sonra yönlendirme yapın
+      
       setTimeout(() => {
         navigate('/myflight');
       }, 2000);
     } catch (error) {
       console.error('Uçuş kaydedilirken hata oluştu:', error);
 
-      // Hata durumunda toast mesajı göster
+      
       toast.error('Reservation failed. Please try again!', {
-        duration: 3000, // Toast mesajının gösterim süresi
-        position: 'top-right', // Toast pozisyonu
+        duration: 3000, 
+        position: 'top-right', 
       });
     }
   };
@@ -101,7 +100,7 @@ const FlightCard = ({ flight, bookFlight, priceArray, routeDest, airline }) => {
             <div className='flex flex-col items-center justify-center'>
               <span className="text-sm font-semibold">{prefixIATA}</span>
               <span className='text-purple text-xl'><IoAirplane></IoAirplane></span>
-              <span className='text-sm'>{flightDuration}</span>
+              <span className='text-sm'>{flightDuration} Nonstop</span>
             </div>
             <div className="hidden md:block border-t-4 border-gray-300 w-20 mt-5"></div>
             <div className='flex flex-col items-start md:items-end text-en'>

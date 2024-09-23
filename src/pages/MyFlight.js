@@ -6,7 +6,7 @@ import { CiCircleInfo } from "react-icons/ci";
 
 const MyFlight = () => {
   const [flights, setFlights] = useState([]);
-  const [avgFare, setAvgFare] = useState(0); // State to store average fare
+  const [avgFare, setAvgFare] = useState(0); 
   const filters = ["Times", "Stops", "Airlines", "Airports", "Amenities"];
   const ratings = [
     [true, true, false, false, false],
@@ -20,7 +20,7 @@ const MyFlight = () => {
       try {
         const response = await axios.get('http://localhost:5000/api/flights/mongodb-flights');
         setFlights(response.data);
-        calculateAvgFare(response.data); // Calculate average fare after fetching data
+        calculateAvgFare(response.data); 
       } catch (error) {
         console.error('Veriler getirilemedi:', error);
       }
@@ -29,12 +29,11 @@ const MyFlight = () => {
     fetchFlightsFromMongoDB();
   }, []);
 
-  // Function to calculate average fare
   const calculateAvgFare = (flightsData) => {
     if (flightsData.length > 0) {
       const totalFare = flightsData.reduce((total, flight) => total + flight.price, 0);
       const averageFare = totalFare / flightsData.length;
-      setAvgFare(averageFare.toFixed(2)); // Update state with average fare
+      setAvgFare(averageFare.toFixed(2)); 
     }
   };
 
@@ -43,7 +42,6 @@ const MyFlight = () => {
   return (
     <div className="container mx-auto px-4">
       <div className="flex flex-wrap md:flex-nowrap items-center justify-between space-y-4 md:space-y-0 space-x-0 md:space-x-4 p-4 bg-white shadow-lg">
-        {/* Filter Buttons */}
         <div className="flex flex-wrap gap-2 md:gap-3">
           {filters.map((filter) => (
             <button
@@ -58,7 +56,6 @@ const MyFlight = () => {
           </button>
         </div>
 
-        {/* Star Rating Filters */}
         <div className="flex space-x-2 justify-center md:ml-auto">
           {ratings.map((stars, index) => (
             <div key={index} className="flex items-center space-x-1">
@@ -84,7 +81,7 @@ const MyFlight = () => {
         <div className='flex items-center justify-center mt-4 md:mt-0'>
           <span className='text-xl text-blue-700 items-center justify-center'><CiCircleInfo /></span>
           <span className='font-normal'>Avg Fare: </span>
-          <span className='font-semibold ml-1'>${avgFare}</span> {/* Display the average fare */}
+          <span className='font-semibold ml-1'>${avgFare}</span> 
         </div>
       </div>
       
@@ -116,7 +113,7 @@ const MyFlight = () => {
               <div className='w-full md:w-1/2 flex flex-wrap md:flex-nowrap items-center space-y-4 md:space-y-0'>
                 <div className='w-1/12 flex text-start'>
                   <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-gray-300">
-                    {/* Logo buraya eklenecek */}
+                    
                   </div>
                 </div>
                 <div className='w-11/12'>

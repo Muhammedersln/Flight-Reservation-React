@@ -56,9 +56,8 @@ const Home = () => {
           <div className='w-full mb-5'>
             <BookBar onFilter={handleFilter} />
           </div>
-          {/* Uçuş Kartları ve Filtre */}
           <div className='flex flex-col md:flex-row gap-5'>
-            {/* FlightCard */}
+
             <div className='md:w-3/4 w-full'>
               {filteredFlights.length === 0 ? (
                 <p>No flights found...</p>

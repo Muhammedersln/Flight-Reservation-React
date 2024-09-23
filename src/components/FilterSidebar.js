@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-// Özel CSS Eklemek için
-import "../../src/css/checkbox.css"; // Bu dosyayı oluşturup gerekli stilleri ekleyeceğiz
+
+import "../../src/css/checkbox.css"; 
 
 const FilterSidebar = () => {
   const [sortBy, setSortBy] = useState('Lowest Price');

@@ -36,7 +36,6 @@ const BookBar = ({ onFilter }) => {
         </div>
       </div>
 
-      {/* Uçuş Bilgileri Girişi */}
       <div className='flex flex-col md:flex-row gap-3 mt-5'>
         {/* Kalkış */}
         <div className='flex items-center border rounded-lg p-2.5 flex-1'>
