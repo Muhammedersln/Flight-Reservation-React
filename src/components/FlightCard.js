@@ -9,7 +9,7 @@ import { IoAirplane } from "react-icons/io5";
 
 
 
-const FlightCard = ({ flight, bookFlight, airlines }) => {
+const FlightCard = ({ flight, bookFlight }) => {
   const {
     flightName,
     scheduleDateTime,
@@ -19,10 +19,7 @@ const FlightCard = ({ flight, bookFlight, airlines }) => {
     prefixIATA,
     expectedTimeOnBelt
   } = flight;
-  const {
-    icao
-  } = airlines;
-
+  
   const departureTime = new Date(scheduleDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const arrivalTime = new Date(expectedTimeOnBelt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
@@ -78,13 +75,13 @@ const FlightCard = ({ flight, bookFlight, airlines }) => {
               <span className='text-lg font-bold'>{departureTime} AM</span>
               <span className='text-sm'>Airport : SSS</span>
             </div>
-            <div class=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
+            <div className=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
             <div className='flex flex-col items-center justify-center '>
               <span className="text-sm font-semibold">{prefixIATA}</span>
               <span className='text-purple text-xl'><IoAirplane></IoAirplane></span>
               <span className='text-sm'>{flightDuration}</span>
             </div>
-            <div class=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
+            <div className=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
             <div className='flex flex-col text-en'>
               <span className="text-sm text-gray-500 flex items-center gap-2"> <TbPlaneArrival></TbPlaneArrival> Arrival</span>
               <span className='text-lg font-bold'>{arrivalTime} AM</span>

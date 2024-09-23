@@ -5,9 +5,8 @@ import MyFlight from './pages/MyFlight';
 function App() {
   return (
     <div className="bg-zinc-100 py-5">
-      {/* <MyFlight></MyFlight> */}
+      <MyFlight></MyFlight>
       <Home />
-      
     </div>
   );
 }

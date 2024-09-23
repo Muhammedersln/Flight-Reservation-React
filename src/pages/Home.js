@@ -10,21 +10,17 @@ import FlightBooking from '../components/FlightBooking';
 
 const Home = () => {
   const [flights, setFlights] = useState([]);
-  const [airlines, setAirlines] = useState([])
   const [filteredFlights, setFilteredFlights] = useState([]);
   const [filterDate, setFilterDate] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getFlights = async () => {
+    // API'den verileri çekmek için GET isteği
+    const fetchFlightsFromAPI = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/flights'); // API'den verileri çekiyoruz
-        setFlights(response.data.flights);
-        setFilteredFlights(response.data.flights);
-        // Hava yolu verilerini çek
-        // const airlineResponse = await axios.get('http://localhost:5000/api/airlines');
-        // setAirlines(airlineResponse.data.airlines || []);
+        const response = await axios.get('http://localhost:5000/api/flights/api-flights'); // API URL'sini kontrol edin
+        setFlights(response.data); // Gelen veriyi flights state'ine kaydediyoruz
       } catch (err) {
         setError(err.message);
       } finally {
@@ -32,8 +28,8 @@ const Home = () => {
       }
     };
 
-    getFlights();
-  }, []);
+    fetchFlightsFromAPI(); // useEffect içinde fetchFlights fonksiyonunu çağırıyoruz
+  }, []); // Boş dizi, component mount edildiğinde sadece bir kez çalışmasını sağlar
 
   useEffect(() => {
     if (filterDate) {
@@ -45,7 +41,6 @@ const Home = () => {
   }, [filterDate, flights]);
 
   console.log(flights);
-  console.log(airlines);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -62,8 +57,8 @@ const Home = () => {
               {flights.length === 0 ? (
                 <p>Loading...</p>
               ) : (
-                flights.slice(0,3).map((flight) => (
-                  <FlightCard key={flight.id} flight={flight} airlines={airlines}  />
+                flights.flights.slice(0,3).map((flight) => (
+                  <FlightCard key={flight.id} flight={flight}  />
                 ))
               )}
             </div>
