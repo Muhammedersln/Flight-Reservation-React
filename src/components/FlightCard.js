@@ -9,23 +9,26 @@ import { IoAirplane } from "react-icons/io5";
 
 
 
-const FlightCard = ({ flight, bookFlight }) => {
+const FlightCard = ({ flight, bookFlight,priceArray,routeDest ,airline }) => {
   const {
-    flightName,
     scheduleDateTime,
     actualLandingTime,
-    route,
-    serviceType,
     prefixIATA,
-    expectedTimeOnBelt
+    prefixICAO,
   } = flight;
   
-  const departureTime = new Date(scheduleDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const arrivalTime = new Date(expectedTimeOnBelt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const departureTime = new Date(scheduleDateTime).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const arrivalTime = new Date(actualLandingTime).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   // Kalkış ve varış zamanlarını Date nesnelerine çevirme
   const departureDate = new Date(scheduleDateTime);
-  const arrivalDate = new Date(expectedTimeOnBelt);
+  const arrivalDate = new Date(actualLandingTime);
   const durationInMilliseconds = arrivalDate - departureDate;
   const durationInMinutes = Math.floor(durationInMilliseconds / (1000 * 60));
   const hours = Math.floor(durationInMinutes / 60);
@@ -36,44 +39,47 @@ const FlightCard = ({ flight, bookFlight }) => {
   const saveFlight = async (flightData) => {
     try {
       const response = await axios.post('http://localhost:5000/api/flights', flightData);
-      console.log('Uçuş başarıyla kaydedildi:', response.data);
+      console.log('Uçuş başarıyla kaydedildi:', response.data.flights);
     } catch (error) {
       console.error('Uçuş kaydedilirken hata oluştu:', error);
     }
   };
-
-  // Uçuş verilerini frontend'de listeleme ve kaydetme
+  const randomPrice = priceArray[Math.floor(Math.random() * priceArray.length)];
+  const randomRoute = routeDest[Math.floor(Math.random() * routeDest.length)];
+  const randomAirline = airline[Math.floor(Math.random() * airline.length)];
   const handleSaveFlight = (flight) => {
-    // Gerekli uçuş verilerini flight objesinden ayıklayın
     const flightData = {
       scheduleDateTime: flight.scheduleDateTime,
-      prefixIATA: flight.prefixIATA,
-      expectedTimeOnBelt: flight.expectedTimeOnBelt,
+      prefixICAO: flight.prefixICAO,
+      actualLandingTime: flight.actualLandingTime,
+      flightName: flight.flightName,
+      route: flight.route.destinations[0],
+      price: randomPrice,
+      airline: randomAirline,
     };
   
-    // flightData'nın içeriğini kontrol edin
     console.log(flightData);
   
-    // Eksik alanları kontrol edin
-    if (!flightData.scheduleDateTime || !flightData.prefixIATA || !flightData.expectedTimeOnBelt) {
+    if (!flightData.scheduleDateTime || !flightData.prefixICAO || !flightData.actualLandingTime) {
       console.error("Gerekli alanlardan biri eksik:", flightData);
       return;
     }
   
     saveFlight(flightData);
   };
-  
+
+
 
   return (
     <div className="bg-white p-5 rounded-[10px] shadow-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4 mb-7">
       <div className='w-full'>
         <div className=''>
-          <span className="text-lg font-semibold">Milano - Madrid</span>
+          <span className="text-lg font-semibold">{randomRoute}</span>
           <div className="flex  justify-between items-start ">
             <div className='flex flex-col'>
               <span className="text-sm text-gray-500 flex items-center gap-2"> <TbPlaneDeparture />Departure</span>
-              <span className='text-lg font-bold'>{departureTime} AM</span>
-              <span className='text-sm'>Airport : SSS</span>
+              <span className='text-lg font-bold'>{departureTime}</span>
+              <span className='text-sm'>Airport :  </span>
             </div>
             <div className=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
             <div className='flex flex-col items-center justify-center '>
@@ -84,15 +90,15 @@ const FlightCard = ({ flight, bookFlight }) => {
             <div className=" border-t-4 border-gray-300 w-20  items-center mt-5"></div>
             <div className='flex flex-col text-en'>
               <span className="text-sm text-gray-500 flex items-center gap-2"> <TbPlaneArrival></TbPlaneArrival> Arrival</span>
-              <span className='text-lg font-bold'>{arrivalTime} AM</span>
-              <span className='text-sm'>Airport : SSS</span>
+              <span className='text-lg font-bold'>{arrivalTime}</span>
+              <span className='text-sm'>Airport : {prefixICAO}</span>
             </div>
           </div>
         </div>
 
         <div className='flex justify-between mt-5 relative'>
           <div className="flex flex-col items">
-            <span className="text-lg font-bold text-purple ">Price: $200</span>
+            <span className="text-lg font-bold text-purple ">Price: ${randomPrice}</span>
             <span className="text-sm text-gray-500 text">Round Trip</span>
           </div>
           <button

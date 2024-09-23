@@ -15,12 +15,16 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const priceArray  = [200,400,600,800,1000];
+  const routeDest = ["Milano - Madrid" , "İstanbul - Roma", "Paris - Berlin", "Moskova - Londra", "Barselona - Atina", "Lizbon - Budapeşte", "Prag - Viyana", "Varşova - Stockholm", "Oslo - Helsinki", "Kopenhag - Dublin"];
+  const airline = ["Delta Air Lines", "United Airlines", "American Airlines", "Lufthansa", "Air France", "British Airways", "Turkish Airlines", "Emirates", "Qatar Airways", "Singapore Airlines"];
+
   useEffect(() => {
     // API'den verileri çekmek için GET isteği
     const fetchFlightsFromAPI = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/flights/api-flights'); // API URL'sini kontrol edin
-        setFlights(response.data); // Gelen veriyi flights state'ine kaydediyoruz
+        const response = await axios.get('http://localhost:5000/api/flights/api-flights'); 
+        setFlights(response.data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -28,8 +32,8 @@ const Home = () => {
       }
     };
 
-    fetchFlightsFromAPI(); // useEffect içinde fetchFlights fonksiyonunu çağırıyoruz
-  }, []); // Boş dizi, component mount edildiğinde sadece bir kez çalışmasını sağlar
+    fetchFlightsFromAPI(); 
+  }, []); 
 
   useEffect(() => {
     if (filterDate) {
@@ -58,7 +62,7 @@ const Home = () => {
                 <p>Loading...</p>
               ) : (
                 flights.flights.slice(0,3).map((flight) => (
-                  <FlightCard key={flight.id} flight={flight}  />
+                  <FlightCard key={flight.id} flight={flight}  priceArray={priceArray} routeDest={routeDest} airline={airline} />
                 ))
               )}
             </div>
