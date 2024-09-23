@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { FaPlaneDeparture, FaPlaneArrival, FaCalendarAlt } from 'react-icons/fa';
 import { IoAirplane } from "react-icons/io5";
 
-
-const BookBar = () => {
+const BookBar = ({ onFilter }) => {
   const [tripType, setTripType] = useState('round');
+  const [to, setTo] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+
+  const handleFilter = () => {
+    onFilter({ to, departureDate });
+  };
 
   return (
     <div className='bg-white p-5 rounded-lg'>
@@ -33,28 +38,49 @@ const BookBar = () => {
         {/* Kalkış */}
         <div className='flex items-center border rounded-lg p-2.5 flex-1'>
           <FaPlaneDeparture className='mr-2.5' />
-          <input type="text" placeholder="From"  style={{ border: 'none', outline: 'none', flex: 1 }} />
+          <input 
+            type="text" 
+            placeholder="From" 
+            disabled
+            style={{ border: 'none', outline: 'none', flex: 1 }} 
+          />
         </div>
         {/* Varış */}
         <div className='flex items-center border rounded-lg p-2.5 flex-1'  >
           <FaPlaneArrival className='mr-2.5'  />
-          <input type="text" placeholder="To" style={{ border: 'none', outline: 'none', flex: 1 }} />
+          <input 
+            type="text" 
+            placeholder="To" 
+            value={to} 
+            onChange={(e) => setTo(e.target.value)} 
+            style={{ border: 'none', outline: 'none', flex: 1 }} 
+          />
         </div>
         {/* Kalkış Tarihi */}
         <div className='flex items-center border rounded-lg p-2.5 flex-1'>
           <FaCalendarAlt className='mr-2.5'/>
-          <input type="date" style={{ border: 'none', outline: 'none', flex: 1 }} />
+          <input 
+            type="date" 
+            value={departureDate} 
+            onChange={(e) => setDepartureDate(e.target.value)} 
+            style={{ border: 'none', outline: 'none', flex: 1 }} 
+          />
         </div>
         {/* Dönüş Tarihi */}
         <div className='flex items-center border rounded-lg p-2.5 flex-1'>
           <FaCalendarAlt className='mr-2.5'/>
-          <input type="date" style={{ border: 'none', outline: 'none', flex: 1 }} disabled={tripType === 'oneway'} />
+          <input 
+            type="date" 
+            style={{ border: 'none', outline: 'none', flex: 1 }} 
+            disabled={tripType === 'oneway'} 
+          />
         </div>
       </div>
 
       {/* Uçuş Arama Butonu */}
       <button
       className='mt-5 p-2.5 bg-purple text-white rounded-lg px-5 '
+      onClick={handleFilter}
       >
         Show flights
       </button>

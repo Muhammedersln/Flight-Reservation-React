@@ -1,22 +1,23 @@
 // src/components/FlightCard.js
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaPlaneDeparture, FaPlaneArrival, FaCalendarAlt } from 'react-icons/fa';
 import { TbPlaneArrival, TbPlaneDeparture } from "react-icons/tb";
 import axios from 'axios';
-
-
 import { IoAirplane } from "react-icons/io5";
+import toast, { Toaster } from 'react-hot-toast';
 
+const FlightCard = ({ flight, bookFlight, priceArray, routeDest, airline }) => {
+  const [bookingConfirmed, setBookingConfirmed] = useState(false);
+  const navigate = useNavigate();
 
-
-const FlightCard = ({ flight, bookFlight,priceArray,routeDest ,airline }) => {
   const {
     scheduleDateTime,
     actualLandingTime,
     prefixIATA,
     prefixICAO,
   } = flight;
-  
+
   const departureTime = new Date(scheduleDateTime).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
@@ -26,7 +27,6 @@ const FlightCard = ({ flight, bookFlight,priceArray,routeDest ,airline }) => {
     minute: "2-digit",
   });
 
-  // Kalkış ve varış zamanlarını Date nesnelerine çevirme
   const departureDate = new Date(scheduleDateTime);
   const arrivalDate = new Date(actualLandingTime);
   const durationInMilliseconds = arrivalDate - departureDate;
@@ -35,18 +35,37 @@ const FlightCard = ({ flight, bookFlight,priceArray,routeDest ,airline }) => {
   const minutes = durationInMinutes % 60;
   const flightDuration = `${hours}h ${minutes}m`;
 
-  // Uçuş verilerini kaydetme fonksiyonu
   const saveFlight = async (flightData) => {
     try {
       const response = await axios.post('http://localhost:5000/api/flights', flightData);
       console.log('Uçuş başarıyla kaydedildi:', response.data.flights);
+      setBookingConfirmed(true);
+
+      // Rezervasyon başarılı olduğunda toast mesajı göster
+      toast.success('Reservation Successful!', {
+        duration: 3000, // Toast mesajının gösterim süresi
+        position: 'top-right', // Toast pozisyonu
+      });
+
+      // 2 saniye sonra yönlendirme yapın
+      setTimeout(() => {
+        navigate('/myflight');
+      }, 2000);
     } catch (error) {
       console.error('Uçuş kaydedilirken hata oluştu:', error);
+
+      // Hata durumunda toast mesajı göster
+      toast.error('Reservation failed. Please try again!', {
+        duration: 3000, // Toast mesajının gösterim süresi
+        position: 'top-right', // Toast pozisyonu
+      });
     }
   };
+
   const randomPrice = priceArray[Math.floor(Math.random() * priceArray.length)];
   const randomRoute = routeDest[Math.floor(Math.random() * routeDest.length)];
   const randomAirline = airline[Math.floor(Math.random() * airline.length)];
+
   const handleSaveFlight = (flight) => {
     const flightData = {
       scheduleDateTime: flight.scheduleDateTime,
@@ -57,18 +76,16 @@ const FlightCard = ({ flight, bookFlight,priceArray,routeDest ,airline }) => {
       price: randomPrice,
       airline: randomAirline,
     };
-  
+
     console.log(flightData);
-  
+
     if (!flightData.scheduleDateTime || !flightData.prefixICAO || !flightData.actualLandingTime) {
       console.error("Gerekli alanlardan biri eksik:", flightData);
       return;
     }
-  
+
     saveFlight(flightData);
   };
-
-
 
   return (
     <div className="bg-white p-5 rounded-[10px] shadow-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4 mb-7">
@@ -105,10 +122,15 @@ const FlightCard = ({ flight, bookFlight,priceArray,routeDest ,airline }) => {
             onClick={() => handleSaveFlight(flight)}
             className="bg-purple text-white px-4 py-2 rounded-md transition absolute top-0 right-0"
           >
-            Book Flight
+            {bookingConfirmed ? 'Reservation Confirmed!' : 'Book Flight'}
           </button>
         </div>
       </div>
+      <div><Toaster
+        position="top-right"
+        reverseOrder={false}
+      /></div>
+
     </div>
   );
 };
